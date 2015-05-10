@@ -79,35 +79,41 @@ function generateOneNumber(){
 }
 
 function isgameover(){
+    if(nospace(board)&&nomove(board) ){
+        gameover();
+    }
+}
 
+function gameover(){
+    alert('nngameover!');
 }
 
 $(document).keydown(function(event){
     switch(event.keyCode){
         case 37://Left
             if(moveLeft()){
-                generateOneNumber();
-                isgameover();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
             }
             break;
         case 38://Up
             if(moveUp()){
-                generateOneNumber();
-                isgameover();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
             }
             break;
         case 39://Right
             if(moveRight()){
-                generateOneNumber();
-                isgameover();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
             }
             break;
         case 40://Down
             if(moveDown()){
-                generateOneNumber();
-                isgameover();
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
             }
-            break;
+            break;d
         default ://default
             break;
     }
@@ -138,6 +144,9 @@ function moveLeft(){
                         //add
                         board[i][k]+=board[i][j];
                         board[i][j]=0;
+                        //add score
+                        score+=board[i][k];
+                        updateScore(score);
 
                         continue;
                     }
@@ -169,6 +178,8 @@ function moveUp(){
                         showMoveAnimation(i,j,k,j);
                         board[k][j]*=2;
                         board[i][j]=0;
+                        score+=board[k][j];
+                        updateScore(score);
 
                         continue;
                     }
@@ -197,6 +208,8 @@ function moveRight(){
                         showMoveAnimation(i,j,i,k);
                         board[i][k]+=board[i][j];
                         board[i][j]=0;
+                        score+=board[i][k];
+                        updateScore(score);
 
                         continue;
                     }
@@ -226,6 +239,8 @@ function moveDown(){
                         showMoveAnimation(i,j,k,j);
                         board[k][j]*=2;
                         board[i][j]=0;
+                        score+=board[k][j];
+                        updateScore(score);
 
                         continue;
                     }
