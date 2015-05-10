@@ -6,8 +6,8 @@ function showNumberWithAnimation(i,j,randNumber){
     numberCell.text(randNumber);
 
     numberCell.animate({
-        width:"100px",
-        height:"100px",
+        width:cellSideLength,
+        height:cellSideLength,
         top:getPosTop(i,j),
         left:getPosLeft(i,j)
     },50);

@@ -3,9 +3,26 @@ var score=0;
 var hasConflicted=new Array();
 
 $(document).ready(function(){
+    prepareForMobile();
     newgame();
 });
 
+function prepareForMobile(){
+    if(documentWidth>500){
+        gridContainerWidth=500;
+        cellSpace=20;
+        cellSideLength=100; 
+    }
+    $('#grid-container').css('width',gridContainerWidth-2*cellSpace);
+    $('#grid-container').css('height',gridContainerWidth-2*cellSpace);
+    $('#grid-container').css('padding',cellSpace);
+    $('#grid-container').css('border-radius',0.02*gridContainerWidth);
+
+    $('.grid-cell').css('width',cellSideLength);
+    $('.grid-cell').css('height',cellSideLength);
+    $('.grid-cell').css('border-radius',0.02*cellSideLength);
+
+}
 function newgame(){
     //初始化棋盘格
     init();
@@ -47,12 +64,12 @@ function updateBoardView(){
             if(board[i][j]==0){
                 theNumberCell.css('width','0px');
                 theNumberCell.css('height','0px');
-                theNumberCell.css('top',getPosTop(i,j)+50);
-                theNumberCell.css('left',getPosLeft(i,j)+50);
+                theNumberCell.css('top',getPosTop(i,j)+cellSideLength/2);
+                theNumberCell.css('left',getPosLeft(i,j)+cellSideLength/2);
             }
             else{
-                theNumberCell.css('width','100px');
-                theNumberCell.css('height','100px');
+                theNumberCell.css('width',cellSideLength);
+                theNumberCell.css('height',cellSideLength);
                 theNumberCell.css('top',getPosTop(i,j));
                 theNumberCell.css('left',getPosLeft(i,j));
                 theNumberCell.css('background-color',getNumberBackgroundColor(board[i][j]));
@@ -61,6 +78,8 @@ function updateBoardView(){
             }
             hasConflicted[i][j]=false;
         }
+    $('.number-cell').css('line-height',cellSideLength+'px');
+    $('.number-cell').css('font-size',0.6*cellSideLength+'px');
 }
 
 
@@ -271,5 +290,5 @@ function moveDown(){
         }
     setTimeout("updateBoardView()",200);
     return true;
-}fs
+}
 
