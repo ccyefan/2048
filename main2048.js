@@ -126,36 +126,96 @@ function gameover(){
 }
 
 $(document).keydown(function(event){
+
     switch(event.keyCode){
         case 37://Left
+            event.preventDefault();
             if(moveLeft()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",300);
             }
             break;
         case 38://Up
+            event.preventDefault();
             if(moveUp()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",300);
             }
             break;
         case 39://Right
+            event.preventDefault();
             if(moveRight()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",300);
             }
             break;
         case 40://Down
+            event.preventDefault();
             if(moveDown()){
                 setTimeout("generateOneNumber()",210);
                 setTimeout("isgameover()",300);
             }
-            break;d
+            break;
         default ://default
             break;
     }
 });
 
+document.addEventListener('touchemove',function(event){
+    event.preventDefault();
+});
+
+document.addEventListener('touchstart',function(event){
+    startx=event.touches[0].pageX;
+    starty=event.touches[0].pageY;
+});
+
+document.addEventListener('touchend',function(event){
+    endx=event.changedTouches[0].pageX;
+    endy=event.changedTouches[0].pageY;
+
+    var deltax=endx-startx;
+    var deltay=endy-starty;
+
+    if(Math.abs(deltax)<0.3*documentWidth&&Math.abs(deltay)<0.3*documentWidth)
+           return;
+
+    //x
+    if(Math.abs(deltax)>=Math.abs(deltay)){
+        if(deltax>0){
+            //move right
+            if(moveRight()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+        else{
+            //move left
+            if(moveLeft()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+    }
+    //y
+    else{
+        if(deltay>0 ){
+            //move down
+            if(moveDown()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+        else{
+            //move up
+            if(moveUp()){
+                setTimeout("generateOneNumber()",210);
+                setTimeout("isgameover()",300);
+            }
+        }
+    }
+
+});
 
 function moveLeft(){
     if (!canMoveLeft(board))
