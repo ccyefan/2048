@@ -122,7 +122,7 @@ function isgameover(){
 }
 
 function gameover(){
-    alert('nngameover!');
+    alert('game over!');
 }
 
 $(document).keydown(function(event){
